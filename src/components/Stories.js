@@ -1,12 +1,39 @@
 import React from 'react';
 import {connect} from "react-redux";
+import {clear, loadStories} from "../actions/index";
 
 export function Stories(props) {
-  return <pre><code>{JSON.stringify(props, null, 2)}</code></pre>
+  return (
+    <div>
+      <button type="button" onClick={props.loadStories}>Load Top 3 Stories</button>
+      <button type="button" onClick={props.clear}>Clear</button>
+      <StoryList {...props} />
+    </div>
+  )
+}
+
+function StoryList(props) {
+  if (props.items.length === 0) return null;
+  return (
+    <div>
+      {props.items.map(item => <Story {...item} key={item.id} />)}
+    </div>
+  )
+}
+
+function Story(props) {
+  return <p>{props.title}</p>
 }
 
 function mapState(state) {
   return state;
 }
 
-export default connect(mapState)(Stories);
+function mapDispatch(dispatch) {
+  return {
+    loadStories: () => dispatch(loadStories()),
+    clear: () => dispatch(clear())
+  };
+}
+
+export default connect(mapState, mapDispatch)(Stories);
