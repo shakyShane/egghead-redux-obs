@@ -1,39 +1,28 @@
-import {CLEAR_STORIES, LOAD_STORIES} from "../actions/index";
-
-const stories = [
-  {
-    "by": "bleakgadfly",
-    "id": 14967192,
-    "title": "To Protect Voting, Use Open-Source Software",
-    "url": "https://mobile.nytimes.com/2017/08/03/opinion/open-source-software-hacker-voting.html"
-  },
-  {
-    "by" : "mtyurt",
-    "id" : 14966545,
-    "title" : "Git: Using Advanced Rebase Features for a Clean Repository",
-    "url" : "https://mtyurt.net/2017/08/08/git-using-advanced-rebase-features-for-a-clean-repository/"
-  },
-  {
-    "by" : "callumlocke",
-    "id" : 14967335,
-    "title" : "Inside an AI brain: What does machine learning look like?",
-    "url" : "https://www.graphcore.ai/posts/what-does-machine-learning-look-like"
-  }
-];
+import {FETCH_USER, FETCH_USER_FULFILLED} from "../actions/index";
 
 const initialState = {
-  items: [],
+  users: [
+    'shakyshane',
+    'sindresorhus',
+    'substack'
+  ],
+  current: null,
+  loading: false,
 };
 
 export function storiesReducer(state = initialState, action) {
   switch(action.type) {
-    case LOAD_STORIES:
+    case FETCH_USER:
       return {
-        items: stories.slice(),
+        ...state,
+        current: null,
+        loading: true
       };
-    case CLEAR_STORIES:
+    case FETCH_USER_FULFILLED:
       return {
-        items: [],
+        ...state,
+        current: action.payload,
+        loading: false
       };
     default: return state;
   }

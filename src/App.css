@@ -22,3 +22,41 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+button {
+  cursor: pointer;
+}
+
+body {
+  padding: 1rem;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  padding-bottom: .5em;
+  margin-bottom: .5em;
+  border-bottom: 1px solid #eaeaea;
+}
+
+li button {
+  margin-left: auto;
+}
+
+.user {
+  display: flex;
+}
+
+.user figure {
+  width: 50px;
+  margin: 0;
+  margin-right: 1rem;
+}
+
+.user img {
+  width: 50px;
+}
