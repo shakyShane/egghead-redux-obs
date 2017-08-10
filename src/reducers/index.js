@@ -1,27 +1,20 @@
-import {FETCH_USER, FETCH_USER_FULFILLED} from "../actions/index";
+import {FETCH_STORIES, FETCH_STORIES_FULFILLED} from "../actions/index";
 
 const initialState = {
-  users: [
-    'shakyshane',
-    'sindresorhus',
-    'substack'
-  ],
-  current: null,
+  stories: [],
   loading: false,
 };
 
 export function storiesReducer(state = initialState, action) {
   switch(action.type) {
-    case FETCH_USER:
+    case FETCH_STORIES:
       return {
-        ...state,
-        current: null,
+        stories: [],
         loading: true
       };
-    case FETCH_USER_FULFILLED:
+    case FETCH_STORIES_FULFILLED:
       return {
-        ...state,
-        current: action.payload,
+        stories: action.payload,
         loading: false
       };
     default: return state;

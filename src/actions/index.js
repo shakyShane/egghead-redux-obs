@@ -1,16 +1,16 @@
-export const FETCH_USER = 'FETCH_USER';
-export const FETCH_USER_FULFILLED = 'FETCH_USER_FULFILLED';
+export const FETCH_STORIES = 'FETCH_STORIES';
+export const FETCH_STORIES_FULFILLED = 'FETCH_STORIES_FULFILLED';
 
-export function fetchUserAction(login) {
+export function fetchStoriesAction(count = 5) {
   return {
-    type: FETCH_USER,
-    payload: login
+    type: FETCH_STORIES,
+    payload: count
   }
 }
 
-export function fetchUserFulfilledAction(user) {
+export function fetchStoriesFulfilledAction(stories) {
   return {
-    type: FETCH_USER_FULFILLED,
-    payload: user
+    type: FETCH_STORIES_FULFILLED,
+    payload: stories
   }
 }
