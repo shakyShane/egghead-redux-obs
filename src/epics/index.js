@@ -1,26 +1,19 @@
 import {Observable} from 'rxjs';
 import {combineEpics} from 'redux-observable';
-import {FETCH_STORIES, fetchStoriesFulfilledAction} from "../actions/index";
+import {receiveBeers, SEARCHED_BEERS} from "../actions/index";
 
-const topStories = `https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty`;
-const url = (id) => `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`;
+const beers  = `https://api.punkapi.com/v2/beers`;
+const search = (term) => `${beers}?beer_name=${encodeURIComponent(term)}`;
+const ajax   = (term) => Observable.ajax.getJSON(search(term));
 
-function fetchStoriesEpic(action$) {
-  return action$.ofType(FETCH_STORIES)
+function searchBeersEpic(action$) {
+  return action$.ofType(SEARCHED_BEERS)
+    .debounceTime(500)
     .switchMap(({payload}) => {
-      return Observable.ajax.getJSON(topStories)
-        // slice first 5 ids
-        .map(ids => ids.slice(0, 5))
-        // convert ids -> urls
-        .map(ids => ids.map(url))
-        // convert urls -> ajax
-        .map(urls => urls.map(url => Observable.ajax.getJSON(url)))
-        // execute 5 ajax requests
-        .mergeMap(reqs => Observable.forkJoin(reqs))
-        // results -> store
-        .map(stories => fetchStoriesFulfilledAction(stories))
+      return ajax(payload)
+        .map(receiveBeers)
     })
 }
 
-export const rootEpic = combineEpics(fetchStoriesEpic);
+export const rootEpic = combineEpics(searchBeersEpic);
 

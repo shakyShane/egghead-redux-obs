@@ -1,24 +1,24 @@
-import {FETCH_STORIES, FETCH_STORIES_FULFILLED} from "../actions/index";
+import {RECEIVED_BEERS, SEARCHED_BEERS} from "../actions/index";
 
 const initialState = {
-  stories: [],
+  beers: [],
   loading: false,
 };
 
-export function storiesReducer(state = initialState, action) {
+export function beersReducer(state = initialState, action) {
   switch(action.type) {
-    case FETCH_STORIES:
+    case SEARCHED_BEERS:
       return {
-        stories: [],
+        ...state,
         loading: true
       };
-    case FETCH_STORIES_FULFILLED:
+    case RECEIVED_BEERS:
       return {
-        stories: action.payload,
+        beers: action.payload,
         loading: false
       };
     default: return state;
   }
 }
 
-export default storiesReducer;
+export default beersReducer;

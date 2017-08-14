@@ -1,16 +1,16 @@
-export const FETCH_STORIES = 'FETCH_STORIES';
-export const FETCH_STORIES_FULFILLED = 'FETCH_STORIES_FULFILLED';
+export const SEARCHED_BEERS = 'SEARCHED_BEERS';
+export const RECEIVED_BEERS = 'RECEIVED_BEERS';
 
-export function fetchStoriesAction(count = 5) {
+export function searchBeers(query) {
   return {
-    type: FETCH_STORIES,
-    payload: count
+    type: SEARCHED_BEERS,
+    payload: query
   }
 }
 
-export function fetchStoriesFulfilledAction(stories) {
+export function receiveBeers(beers) {
   return {
-    type: FETCH_STORIES_FULFILLED,
-    payload: stories
+    type: RECEIVED_BEERS,
+    payload: beers
   }
 }

@@ -1,5 +1,40 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
 .App {
   /*text-align: center;*/
+  display: grid;
+  grid-template-columns: 30% 70%;
+  height: 100vh;
+}
+
+.Beer-List {
+  position: relative;
+  background: #e6e6e6;
+  padding: 0 1rem;
+}
+
+.Beer {
+  display: flex;
+  align-items: center;
+}
+
+.Beer small {
+  display: block;
+}
+
+.Beer-Image {
+  width: 30px;
+}
+
+.Beer-Image img {
+  max-width: 100%;
+}
+
+.Search {
+  padding: 3rem 1rem;
+  text-align: center;
 }
 
 .App-logo {
@@ -25,10 +60,6 @@
 
 button {
   cursor: pointer;
-}
-
-body {
-  padding: 1rem;
 }
 
 ul {
