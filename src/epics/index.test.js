@@ -1,24 +1,26 @@
 import {Observable} from 'rxjs';
-import {ActionsObservable} from 'redux-observable';
-import {searchBeersEpic} from "./index";
-import {RECEIVED_BEERS, searchBeers, SEARCHED_BEERS_LOADING} from "../actions/index";
+import {VirtualTimeScheduler} from 'rxjs/scheduler/VirtualTimeScheduler';
+import {searchBeers} from "../actions/index";
+import {configureStore} from "../configureStore";
 
-it('should perform a search', function () {
-  const action$ = ActionsObservable.of(searchBeers('shane'));
+it('should perform a search (redux)', function () {
 
+  const scheduler = new VirtualTimeScheduler();
   const deps = {
+    scheduler,
     ajax: {
       getJSON: () => Observable.of([{name: 'shane'}])
     }
   };
 
-  const output$ = searchBeersEpic(action$, null, deps);
+  const store = configureStore(deps);
 
-  output$.toArray().subscribe(actions => {
-    expect(actions.length).toBe(2);
+  const action = searchBeers('shane');
 
-    expect(actions[0].type).toBe(SEARCHED_BEERS_LOADING);
-    expect(actions[1].type).toBe(RECEIVED_BEERS);
-  });
+  store.dispatch(action);
+
+  scheduler.flush();
+
+  expect(store.getState().beers.length).toBe(1);
 });
 

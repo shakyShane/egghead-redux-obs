@@ -7,7 +7,7 @@ const search = (term) => `${beers}?beer_name=${encodeURIComponent(term)}`;
 
 export function searchBeersEpic(action$, store, deps) {
   return action$.ofType(SEARCHED_BEERS)
-    .debounceTime(500)
+    .debounceTime(500, deps.scheduler)
     .filter(action => action.payload !== '')
     .switchMap(({payload}) => {
 
