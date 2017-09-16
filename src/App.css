@@ -91,3 +91,11 @@ li button {
 .user img {
   width: 50px;
 }
+
+.Message {}
+.Message--error {
+  padding-top: 1rem;
+  font-size: .8em;
+  color: red;
+  text-align: left;
+}

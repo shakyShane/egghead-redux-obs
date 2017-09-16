@@ -15,6 +15,7 @@ class App extends Component {
         <Search
           defaultValue={''}
           onChange={this.handleBeerSearch}
+          messages={this.props.messages}
         />
         <Beers beers={this.props.beers} loading={this.props.loading}/>
       </div>
