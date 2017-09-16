@@ -4,12 +4,8 @@ import {CANCEL_SEARCH, receiveBeers, searchBeersError, searchBeersLoading, SEARC
 
 const beers  = `https://api.punkapi.com/v2/beers`;
 const search = (term) => `${beers}?beer_name=${encodeURIComponent(term)}`;
-const ajax   = (term) =>
-  term === 'skull'
-    ? Observable.throw(new Error('Ajax failed!'))
-    : Observable.ajax.getJSON(search(term)).delay(5000);
 
-function searchBeersEpic(action$) {
+export function searchBeersEpic(action$, store, deps) {
   return action$.ofType(SEARCHED_BEERS)
     .debounceTime(500)
     .filter(action => action.payload !== '')
@@ -19,7 +15,7 @@ function searchBeersEpic(action$) {
       const loading = Observable.of(searchBeersLoading(true));
 
       // external API call
-      const request = ajax(payload)
+      const request = deps.ajax.getJSON(search(payload))
         .takeUntil(action$.ofType(CANCEL_SEARCH))
         .map(receiveBeers)
         .catch(err => {
