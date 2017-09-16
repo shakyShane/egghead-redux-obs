@@ -2,6 +2,13 @@ export const SEARCHED_BEERS_LOADING = 'SEARCHED_BEERS_LOADING';
 export const SEARCHED_BEERS_ERROR = 'SEARCHED_BEERS_ERROR';
 export const SEARCHED_BEERS = 'SEARCHED_BEERS';
 export const RECEIVED_BEERS = 'RECEIVED_BEERS';
+export const CANCEL_SEARCH = 'CANCEL_SEARCH';
+
+export function cancelSearch() {
+  return {
+    type: CANCEL_SEARCH
+  }
+}
 
 export function searchBeersError(err) {
   return {
